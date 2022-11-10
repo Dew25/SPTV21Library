@@ -2,8 +2,10 @@
 
 package entity;
 
+import java.io.Serializable;
 
-public class Author {
+
+public class Author implements Serializable{
     private String firstname;
     private String lastname;
     private int birthday;

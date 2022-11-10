@@ -8,6 +8,7 @@ import entity.Reader;
 import java.util.Arrays;
 import java.util.Scanner;
 import manager.BookManager;
+import manager.DataManager;
 import manager.HistoryManager;
 import manager.ReaderManager;
 
@@ -17,14 +18,16 @@ public class App {
     private final BookManager bookManager;
     private final ReaderManager readerManager;
     private final HistoryManager historyManager;
+    private final DataManager dataManager;
     private Book[] books;
     private Reader[] readers;
     private History[] histories;
 
     public App() {
         scanner = new Scanner(System.in);
-        books = new Book[0];
-        readers = new Reader[0];
+        dataManager = new DataManager();
+        books = dataManager.loadBooks();
+        readers = dataManager.loadReaders();
         histories = new History[0];
         bookManager = new BookManager();
         readerManager = new ReaderManager();
@@ -55,10 +58,12 @@ public class App {
                 case 1:
                     System.out.println("1. Добавить книгу");
                     addBook(bookManager.createBookWithAuthors());
+                    dataManager.saveBooks(books);
                     break;
                 case 2:
                     System.out.println("2. Добавить читателя");
                     addReader(readerManager.createReader());
+                    dataManager.saveReaders(readers);
                     break;
                 case 3:
                     System.out.println("3. Выдать книгу");

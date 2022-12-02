@@ -27,11 +27,11 @@ private final Scanner scanner;
         System.out.println("Список книг: ");
         for (int i = 0; i < books.size(); i++) {
             System.out.print(i+1+". "+books.get(i).getBookName()+". ");
-            for (int j = 0; j < books.get(i).getAuthors().length; j++) {
+            for (int j = 0; j < books.get(i).getAuthors().size(); j++) {
                 System.out.printf("%s %s %d", 
-                        books.get(i).getAuthors()[j].getFirstname(),
-                        books.get(i).getAuthors()[j].getLastname(),
-                        books.get(i).getAuthors()[j].getBirthday());
+                        books.get(i).getAuthors().get(j).getFirstname(),
+                        books.get(i).getAuthors().get(j).getLastname(),
+                        books.get(i).getAuthors().get(j).getBirthday());
 
             }
             System.out.println();
@@ -49,11 +49,11 @@ private final Scanner scanner;
         for (int i = 0; i < histories.size(); i++) {
             if(histories.get(i).getReturnBook() == null){
                 System.out.print(i+1+". "+histories.get(i).getBook().getBookName()+". ");
-                for (int j = 0; j < histories.get(i).getBook().getAuthors().length; j++) {
+                for (int j = 0; j < histories.get(i).getBook().getAuthors().size(); j++) {
                     System.out.printf("%s %s %d", 
-                            histories.get(i).getBook().getAuthors()[j].getFirstname(),
-                            histories.get(i).getBook().getAuthors()[j].getLastname(),
-                            histories.get(i).getBook().getAuthors()[j].getBirthday()
+                            histories.get(i).getBook().getAuthors().get(j).getFirstname(),
+                            histories.get(i).getBook().getAuthors().get(j).getLastname(),
+                            histories.get(i).getBook().getAuthors().get(j).getBirthday()
                     );
                 }
                 System.out.println();

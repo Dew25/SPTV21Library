@@ -40,11 +40,11 @@ public class BookManager {
     public void printListBooks(List<Book> books){
         for (int i = 0; i < books.size(); i++) {
             System.out.print(i+1+". "+books.get(i).getBookName()+". ");
-            for (int j = 0; j < books.get(i).getAuthors().length; j++) {
+            for (int j = 0; j < books.get(i).getAuthors().size(); j++) {
                 System.out.printf("%s %s %d. ", 
-                        books.get(i).getAuthors()[j].getFirstname(),
-                        books.get(i).getAuthors()[j].getLastname(),
-                        books.get(i).getAuthors()[j].getBirthday());
+                        books.get(i).getAuthors().get(i).getFirstname(),
+                        books.get(i).getAuthors().get(i).getLastname(),
+                        books.get(i).getAuthors().get(i).getBirthday());
 
             }
             System.out.println();
@@ -93,7 +93,7 @@ public class BookManager {
             System.out.print("Введите другое количество книги: ");
             books.get(numBookForEdit - 1).setQuantity(scanner.nextInt());scanner.nextLine();
         }
-        System.out.println("Авторов у книги "+books.get(numBookForEdit - 1).getAuthors().length);
+        System.out.println("Авторов у книги "+books.get(numBookForEdit - 1).getAuthors().size());
         System.out.println("Изменить количество авторов? (y/n)");
         edit = scanner.nextLine();
         if(edit.equals("y")){// Меняем количество авторов
@@ -101,10 +101,10 @@ public class BookManager {
             int newCountAuthorsInBook = scanner.nextInt();
             scanner.nextLine();
          // количество авторов может быть больше или меньше.
-            if(newCountAuthorsInBook < books.get(numBookForEdit - 1).getAuthors().length){
+            if(newCountAuthorsInBook < books.get(numBookForEdit - 1).getAuthors().size()){
                //если меньше, выводим нумерованный список авторов и просим указать какого удалить
                // вычисляем на сколько меньше 
-                int deltaAuthors = books.get(numBookForEdit - 1).getAuthors().length - newCountAuthorsInBook;
+                int deltaAuthors = books.get(numBookForEdit - 1).getAuthors().size() - newCountAuthorsInBook;
                 for (int n = 0; n < deltaAuthors; n++) {
                     //удаляем лишних (deltaAuthors) авторов из книги
                    books.set(numBookForEdit - 1,deleteAuthorBook(books.get(numBookForEdit - 1)));
@@ -112,7 +112,7 @@ public class BookManager {
             }else{
                 for (int i = 0; i < newCountAuthorsInBook; i++) {
                     //если счетчик больше количесвтва авторов
-                    if(i >= books.get(numBookForEdit - 1).getAuthors().length){
+                    if(i >= books.get(numBookForEdit - 1).getAuthors().size()){
                         // добаляем нового автора в книгу
                         Author newAuthor = new Author();
                         System.out.print("Введите имя автора "+(i+1)+": ");
@@ -122,28 +122,28 @@ public class BookManager {
                         System.out.print("Введите год рождения автора "+(i+1)+": ");
                         newAuthor.setBirthday(scanner.nextInt()); scanner.nextLine();
                         books.get(numBookForEdit - 1).addAuthor(newAuthor);
-                    }else if(i < books.get(numBookForEdit - 1).getAuthors().length){
+                    }else if(i < books.get(numBookForEdit - 1).getAuthors().size()){
                         // изменяем существующих авторов книги
                         System.out.println(i+1+"-й автор: "
-                            +books.get(numBookForEdit - 1).getAuthors()[i].getFirstname()+" "+
-                                   books.get(numBookForEdit - 1).getAuthors()[i].getLastname());
+                            +books.get(numBookForEdit - 1).getAuthors().get(i).getFirstname()+" "+
+                                   books.get(numBookForEdit - 1).getAuthors().get(i).getLastname());
                         System.out.print("Изменить имя автора? (y/n)");
                         edit = scanner.nextLine();
                         if(edit.equals("y")){
                             System.out.print("Введите другое имя автора: ");
-                            books.get(numBookForEdit - 1).getAuthors()[i].setFirstname(scanner.nextLine());
+                            books.get(numBookForEdit - 1).getAuthors().get(i).setFirstname(scanner.nextLine());
                         }    
                         System.out.print("Изменить фамилию автора? (y/n)");
                         edit = scanner.nextLine();
                         if(edit.equals("y")){
                             System.out.print("Введите другую фамилию автора: ");
-                            books.get(numBookForEdit - 1).getAuthors()[i].setLastname(scanner.nextLine());
+                            books.get(numBookForEdit - 1).getAuthors().get(i).setLastname(scanner.nextLine());
                         }    
                         System.out.print("Изменить год рождения автора? (y/n)");
                         edit = scanner.nextLine();
                         if(edit.equals("y")){
                             System.out.print("Введите другой год рождения автора: ");
-                            books.get(numBookForEdit - 1).getAuthors()[i].setBirthday(scanner.nextInt());scanner.nextLine();
+                            books.get(numBookForEdit - 1).getAuthors().get(i).setBirthday(scanner.nextInt());scanner.nextLine();
                         }    
                     }
                 }
@@ -152,10 +152,10 @@ public class BookManager {
         return books;
     }
     private Book deleteAuthorBook(Book book) {
-        for (int i = 0; i < book.getAuthors().length; i++) {
+        for (int i = 0; i < book.getAuthors().size(); i++) {
             System.out.println(
-                    i+1+". "+book.getAuthors()[i].getFirstname()+" "+
-                            book.getAuthors()[i].getLastname());
+                    i+1+". "+book.getAuthors().get(i).getFirstname()+" "+
+                            book.getAuthors().get(i).getLastname());
         }
         System.out.println("Какого автора удалить? ");
         int numDeleteAuthor = scanner.nextInt();

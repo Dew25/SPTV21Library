@@ -3,17 +3,19 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Book implements Serializable{
     private String bookName;
-    private Author[] authors;
+    private List<Author> authors;
     private int publishedYear;
     private int quantity;
 
     public Book() {
-        authors = new Author[0];
+        authors = new ArrayList<>();
     }
 
     public String getBookName() {
@@ -24,38 +26,23 @@ public class Book implements Serializable{
         this.bookName = bookName;
     }
 
-    public Author[] getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Author[] authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
     
     public void addAuthor(Author author){
-        Author[] newAuthors = Arrays.copyOf(authors, authors.length+1);
-        newAuthors[newAuthors.length - 1] = author;
-        authors = newAuthors;
+        authors.add(author);
     }
     
     public int getPublishedYear() {
         return publishedYear;
     }
     public void removeAuthor(int numberOfAuthor){
-        //обнуляем указанного автора (по индексу)
-        this.getAuthors()[numberOfAuthor-1]=null;
-        //создаем массив с количеством элементов на 1 меньше
-        Author[] newAuthors = new Author[this.getAuthors().length-1];
-        // в цикле копируем элементы в новый массив не учитывая обнуленную ячейку
-        int j = 0;
-        for (Author author : this.getAuthors()) {
-            if (author != null) {
-                newAuthors[j] = author;
-                j++;
-            }
-        }
-        //копируем ссылку на новый массив в книгу
-        this.setAuthors(newAuthors);
+        authors.remove(numberOfAuthor);
     }
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
@@ -73,7 +60,7 @@ public class Book implements Serializable{
     public String toString() {
         return "Book{" 
                 + "bookName=" + bookName 
-                + ", authors=" + Arrays.toString(authors)
+                + ", authors=" + Arrays.toString(authors.toArray())
                 + ", publishedYear=" + publishedYear 
                 + ", quantity=" + quantity 
                 + '}';

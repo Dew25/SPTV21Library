@@ -70,10 +70,12 @@ public class App {
                 case 3:
                     System.out.println("3. Выдать книгу");
                     histories.add(historyManager.takeOnBook(books, readers));
+                    dataManager.saveHistories(histories);
                     break;
                 case 4: 
                     System.out.println("4. Вернуть книгу");
                     histories = historyManager.returnBook(histories);
+                    dataManager.saveHistories(histories);
                     break;
                 case 5: 
                     System.out.println("5. Список выданных книг");
@@ -90,10 +92,12 @@ public class App {
                 case 8:
                     System.out.println("8. Редактирование книги");
                     this.books = bookManager.changeBook(books);
+                    dataManager.saveBooks(books);
                     break;
                 case 9:
                     System.out.println("8. Редактирование читателя");
                     this.readers = readerManager.changeReader(readers);
+                    dataManager.saveReaders(readers);
                     break;
                 default:
                     System.out.println("Выберите задачу из списка!");;

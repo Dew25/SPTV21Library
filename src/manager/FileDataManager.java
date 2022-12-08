@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DataManager {
+public class FileDataManager {
     private final String BOOKS_FILE = "files/MyBooks";
     private final String READERS_FILE = "files/MyReaders";
     private final String HISTORIES_FILE = "files/MyHistories";
 
-    public DataManager() {
+    public FileDataManager() {
         File file = new File("files");
         file.mkdirs();
     }

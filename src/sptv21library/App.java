@@ -21,9 +21,7 @@ public class App {
     private final HistoryManager historyManager;
     //private final FileDataManager dataManager;
     private final BaseDataManager dataManager;
-    //private Book[] books;
     private List<Book> books;
-    //private Reader[] readers;
     private List<Reader> readers;
     private List<History> histories;
 
@@ -32,8 +30,8 @@ public class App {
         //dataManager = new FileDataManager();
         dataManager = new BaseDataManager();
         books = dataManager.loadBooks();
-//        readers = dataManager.loadReaders();
-//        histories = dataManager.loadHistories();
+        readers = dataManager.loadReaders();
+        histories = dataManager.loadHistories();
         bookManager = new BookManager();
         readerManager = new ReaderManager();
         historyManager = new HistoryManager();
@@ -68,17 +66,17 @@ public class App {
                 case 2:
                     System.out.println("2. Добавить читателя");
                     readers.add(readerManager.createReader());
-                    //dataManager.saveReaders(readers);
+                    dataManager.saveReaders(readers);
                     break;
                 case 3:
                     System.out.println("3. Выдать книгу");
                     histories.add(historyManager.takeOnBook(books, readers));
-                    //dataManager.saveHistories(histories);
+                    dataManager.saveHistories(histories);
                     break;
                 case 4: 
                     System.out.println("4. Вернуть книгу");
                     histories = historyManager.returnBook(histories);
-                    //dataManager.saveHistories(histories);
+                    dataManager.saveHistories(histories);
                     break;
                 case 5: 
                     System.out.println("5. Список выданных книг");

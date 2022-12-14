@@ -6,6 +6,7 @@ import entity.Author;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import interfaces.PersistenceData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,11 +15,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 
-public class BaseDataManager {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SPTV21LibraryPU");
-    private EntityManager em = emf.createEntityManager();
-    private EntityTransaction tx = em.getTransaction();
+public class BaseDataManager  implements PersistenceData{
     
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SPTV21LibraryPU");
+    private final EntityManager em = emf.createEntityManager();
+    private final EntityTransaction tx = em.getTransaction();
+    
+    @Override
     public void saveBooks(List<Book> books){
         tx.begin();
             for (int i = 0; i < books.size(); i++) {
@@ -39,6 +42,7 @@ public class BaseDataManager {
             }
         tx.commit();
     }
+    @Override
     public List<Book> loadBooks() {
         try {
             return em.createQuery("SELECT b FROM Book b")
@@ -47,6 +51,7 @@ public class BaseDataManager {
             return new ArrayList<>();
         }
     }
+    @Override
     public void saveReaders(List<Reader> readers){
         tx.begin();
             for (int i = 0; i < readers.size(); i++) {
@@ -59,6 +64,7 @@ public class BaseDataManager {
             }
         tx.commit();
     }
+    @Override
     public List<Reader> loadReaders() {
         try {
             return em.createQuery("SELECT r FROM Reader r")
@@ -67,6 +73,7 @@ public class BaseDataManager {
             return new ArrayList<>();
         }
     }
+    @Override
     public void saveHistories(List<History> histories){
         tx.begin();
             for (int i = 0; i < histories.size(); i++) {
@@ -79,6 +86,7 @@ public class BaseDataManager {
             }
         tx.commit();
     }
+    @Override
     public List<History> loadHistories() {
         try {
             return em.createQuery("SELECT h FROM History h")

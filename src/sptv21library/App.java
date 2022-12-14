@@ -5,6 +5,7 @@ package sptv21library;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import interfaces.PersistenceData;
 import java.util.List;
 import java.util.Scanner;
 import manager.BaseDataManager;
@@ -15,20 +16,24 @@ import manager.ReaderManager;
 
 
 public class App {
+    public static boolean saveToBase;
     private final Scanner scanner;
     private final BookManager bookManager;
     private final ReaderManager readerManager;
     private final HistoryManager historyManager;
     //private final FileDataManager dataManager;
-    private final BaseDataManager dataManager;
+    private final PersistenceData dataManager;
     private List<Book> books;
     private List<Reader> readers;
     private List<History> histories;
 
     public App() {
         scanner = new Scanner(System.in);
-        //dataManager = new FileDataManager();
-        dataManager = new BaseDataManager();
+        if(App.saveToBase){
+            dataManager = new BaseDataManager();
+        }else{
+            dataManager = new FileDataManager();
+        }
         books = dataManager.loadBooks();
         readers = dataManager.loadReaders();
         histories = dataManager.loadHistories();

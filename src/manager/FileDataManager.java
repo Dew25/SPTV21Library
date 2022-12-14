@@ -5,6 +5,7 @@ package manager;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import interfaces.PersistenceData;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FileDataManager {
+public class FileDataManager implements PersistenceData{
+    
     private final String BOOKS_FILE = "files/MyBooks";
     private final String READERS_FILE = "files/MyReaders";
     private final String HISTORIES_FILE = "files/MyHistories";
@@ -26,6 +28,7 @@ public class FileDataManager {
         file.mkdirs();
     }
     
+    @Override
     public void saveBooks(List<Book> books) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(BOOKS_FILE);
@@ -39,6 +42,7 @@ public class FileDataManager {
         }
     }
 
+    @Override
     public List<Book> loadBooks() {
         List<Book> books = new ArrayList<>();
         try {
@@ -54,6 +58,7 @@ public class FileDataManager {
         }
         return books;
     }
+    @Override
     public void saveReaders(List<Reader> readers) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(READERS_FILE);
@@ -67,6 +72,7 @@ public class FileDataManager {
         }
     }
 
+    @Override
     public List<Reader> loadReaders() {
         List<Reader> readers = new ArrayList<>();
         try {
@@ -74,7 +80,7 @@ public class FileDataManager {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             readers = (List<Reader>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
-            System.out.println("Нет файла MyBooks");
+            System.out.println("Нет файла MyReaders");
         } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
         } catch (ClassNotFoundException ex) {
@@ -82,6 +88,7 @@ public class FileDataManager {
         }
         return readers;
     }
+    @Override
     public void saveHistories(List<History> histories) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(HISTORIES_FILE);
@@ -89,11 +96,12 @@ public class FileDataManager {
             objectOutputStream.writeObject(histories);
             objectOutputStream.flush();
         } catch (FileNotFoundException ex) {
-            System.out.println("Нет файла MyReaders");
+            System.out.println("Нет файла MyHistories");
         } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
         }
     }
+    @Override
     public List<History> loadHistories() {
         List<History> histories = new ArrayList<>();
         try {
@@ -101,7 +109,7 @@ public class FileDataManager {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             histories = (List<History>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
-            System.out.println("Нет файла MyBooks");
+            System.out.println("Нет файла MyHistories");
         } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
         } catch (ClassNotFoundException ex) {
